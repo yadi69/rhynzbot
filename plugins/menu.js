@@ -31,7 +31,7 @@ let tags = {
 }
 const defaultMenu = {
   before: `
-┌─〔 %me 〕
+┌─〔 RHYNZ-BOT 〕
 ├ Hai, %name!
 │
 ├ Tersisa *%limit Limit*
@@ -53,8 +53,7 @@ const defaultMenu = {
   body: '├ %cmd %islimit %isPremium',
   footer: '└────\n',
   after: `
-*%npmname@^%version*
-${'```%npmdesc```'}
+*RHYNZ-BOT*
 `,
 }
 let handler = async (m, { conn, usedPrefix: _p }) => {
