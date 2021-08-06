@@ -19,7 +19,7 @@ Ketik ${usedPrefix}ao untuk bantuan
 Bonus: ${poin} XP
     `.trim()
     conn.asahotak[id] = [
-        await conn.send2Button(m.chat, caption.trim(), 'made with ❤️ by ariffb', 'BANTUAN', '.ao', 'NYERAH', 'nyerah'),
+        await conn.send2Button(m.chat, caption.trim(), 'made with ❤️ by rhynz', 'BANTUAN', '.ao', 'NYERAH', 'nyerah'),
         json, poin,
         setTimeout(async () => {
             if (conn.asahotak[id]) await conn.sendButton(m.chat, `Waktu habis!\nJawabannya adalah *${json.jawaban}*`, '', 'ASAH OTAK', '.asahotak')
