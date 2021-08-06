@@ -39,14 +39,14 @@ const defaultMenu = {
 ├ Level *%level (%exp / %maxexp)* [%xp4levelup]
 ├ %totalexp XP secara Total
 │ 
-├ Tanggal: *%week %weton, %date*
+├ Tanggal: *%week , %date*
 ├ Tanggal Islam: *%dateIslamic*
-├ Waktu: *%time*
+├ Waktu     : *%time*
 │
-├ Uptime: *%uptime (%muptime)*
-├ Database: %rtotalreg dari %totalreg
-├ Github:
-├ %github
+├ Uptime    : *%uptime (%muptime)*
+├ Database  : %rtotalreg dari %totalreg
+├ Instagram :
+├ www.instagram.com/rhy_nz
 └────
 %readmore`.trimStart(),
   header: '┌─〔 %category 〕',
