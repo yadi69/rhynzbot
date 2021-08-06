@@ -23,7 +23,7 @@ ${positif}
 *Negatif:*
 ${negatif}
 
-*© stikerin*
+*© rhynz*
 `.trim())
     }
     else throw json
