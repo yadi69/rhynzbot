@@ -26,7 +26,7 @@ ${list}
 │ 
 └────
 
-© stikerin`, m, { contextInfo: { mentionedJid: absen } })
+© rhynz`, m, { contextInfo: { mentionedJid: absen } })
 }
 handler.help = ['absen']
 handler.tags = ['absen']
