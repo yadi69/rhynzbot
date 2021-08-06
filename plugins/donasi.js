@@ -1,16 +1,13 @@
 let handler = async m => m.reply(`
 ┌〔 Donasi • Pulsa 〕
-├ Axis [083128734012]
-├ BYU [085157336614]
+├ THREE [0895400244287]
 └────
 
 ┌〔 Donasi • Emoney 〕
-├ OVO, Dana [083128734012]
-├ https://saweria.co/ariffb
+├ OVO, Dana, Gopay [082261637676]
 └────
 
-Dukung stikerin hanya dengan membuka link dibawah ini, dan ikuti tujuannya
-https://semawur.com/dukungstikerin
+Dukung Rhynz hanya dengan membuka link dibawah ini, dan ikuti tujuannya
 `.trim())
 handler.help = ['donasi']
 handler.tags = ['info']
