@@ -45,7 +45,7 @@ let handler = async m => {
         .setDiscriminator(discriminator)
       rank.build()
         .then(async data => {
-          await conn.sendButtonImg(m.chat, `_*Level Up!*_\n_${before}_ -> _${user.level}_`.trim(), data, '© stikerin', 'AUTO LEVEL UP', ',on autolevelup')
+          await conn.sendButtonImg(m.chat, `_*Level Up!*_\n_${before}_ -> _${user.level}_`.trim(), data, '© rhynz', 'AUTO LEVEL UP', ',on autolevelup')
         })
     }
   }
