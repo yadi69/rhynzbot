@@ -29,7 +29,7 @@ handler.all = async function (m, { isPrems, isOwner }) {
         if (!res.ok) throw await res.text()
         let json = await res.json()
         await m.reply(global.wait)
-        await this.sendFile(m.chat, json.download, '', `© stikerin`, m)
+        await this.sendFile(m.chat, json.download, '', `© Rhynz`, m)
     }
 
     if (/^.*(fb.watch|facebook.com)/i.test(m.text)) {
@@ -71,7 +71,7 @@ handler.all = async function (m, { isPrems, isOwner }) {
             let pesan = json.data.map((v) => `Link: ${v.url}`).join('\n------------\n')
             await m.reply(global.wait)
             for (let { url } of json.data) {
-                this.sendFile(m.chat, url, 'ig' + (/mp4/i.test(url) ? '.mp4' : '.jpg'), `© stikerin`, m, 0, buf)
+                this.sendFile(m.chat, url, 'ig' + (/mp4/i.test(url) ? '.mp4' : '.jpg'), `© Rhynz`, m, 0, buf)
             }
         }).catch(_ => _)
     }
