@@ -386,6 +386,7 @@ module.exports = {
               let lea = `https://hardianto-chan.herokuapp.com/api/tools/leave2?name=${encodeURIComponent(this.getName(user))}&descriminator=${user.split(`@`)[0].substr(-5)}&totalmem=${encodeURIComponent(groupMetadata.participants.length)}&namegb= ${encodeURIComponent(this.getName(jid))}&ppuser=${pp}&background=https://i.ibb.co/KhtRxwZ/dark.png&apikey=hardianto`
 
               this.sendFile(jid, action === 'add' ? wel : lea, 'pp.jpg', text, null, false, {
+                thumbnail: await (await fetch(action === 'add' ? wel : lea)).buffer(),
                 contextInfo: {
                   mentionedJid: [user]
                 }
@@ -411,12 +412,11 @@ module.exports = {
     if (m.key.fromMe) return
     let chat = global.db.data.chats[m.key.remoteJid]
     if (chat.delete) return
-    await this.reply(m.key.remoteJid, `
+    await this.sendButton(m.key.remoteJid, `
 Terdeteksi @${m.participant.split`@`[0]} telah menghapus pesan
-
-Untuk mematikan fitur ini, ketik
-*.on delete*
-`.trim(), m.message, {
+ketik *.on delete* untuk mematikan pesan ini
+`.trim(), '', 'MATIKAN ANTI DELETE', ',on delete', {
+      quoted: m.message,
       contextInfo: {
         mentionedJid: [m.participant]
       }
@@ -441,19 +441,15 @@ Untuk mematikan fitur ini, ketik
       await this.blockUser(from, 'add')
       user.call = 0
     }
-
-
   },
   async GroupUpdate({ jid, desc, descId, descTime, descOwner }) {
     if (!global.db.data.chats[jid].descUpdate) return
     let caption = `
-Deskripsi diubah oleh @${descOwner.split`@`[0]}
-
+@${descOwner.split`@`[0]} telah mengubah deskripsi grup.
 ${desc}
-
 ketik *.off desc* untuk mematikan pesan ini
     `.trim()
-    this.reply(jid, caption, null, { contextInfo: { mentionedJid: this.parseMention(caption) } })
+    this.sendButton(jid, caption, '', 'MATIKAN DESKRIPSI', ',off desc', { contextInfo: { mentionedJid: this.parseMention(caption) } })
   }
 }
 
@@ -467,7 +463,7 @@ global.dfail = (type, m, conn) => {
     private: 'Perintah ini hanya dapat digunakan di Chat Pribadi',
     admin: 'Perintah ini hanya untuk *Admin* grup',
     botAdmin: 'Jadikan bot sebagai *Admin* untuk menggunakan perintah ini',
-    unreg: 'Silahkan daftar untuk menggunakan fitur ini dengan cara mengetik:\n\n*#daftar nama.umur*\n\nContoh: *#daftar RHYNZ.19*',
+    unreg: 'Silahkan daftar untuk menggunakan fitur ini dengan cara mengetik:\n\n*#daftar nama.umur*\n\nContoh: *#daftar Arif.19*',
     nsfw: 'NSFW tidak aktif'
   }[type]
   if (msg) return m.reply(msg)
