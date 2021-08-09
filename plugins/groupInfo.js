@@ -1,4 +1,4 @@
-let handler = async (m, { conn, participants, groupMetadata }) => {
+let handler = async (m, { conn, participants, groupMetadata, text }) => {
 
     const getGroupAdmins = (participants) => {
         admins = []
@@ -16,25 +16,22 @@ let handler = async (m, { conn, participants, groupMetadata }) => {
         let { isBanned, welcome, detect, sWelcome, sBye, sPromote, sDemote, antiLink, expired, descUpdate, stiker } = global.db.data.chats[m.chat]
         const groupAdmins = getGroupAdmins(participants)
         let listAdmin = groupAdmins.map((v, i) => `${i + 1}. @${v.split`@`[0]}`).join('\n')
-        let text = `*Informasi Grup*\n
+
+        if (text) return m.reply(msToDate(expired - new Date() * 1))
+
+        let caption = `*Informasi Grup*\n
 *ID:* 
 ${groupMetadata.id}
-
 *Nama:* 
 ${groupMetadata.subject}
-
 *Deskripsi:* 
 ${groupMetadata.desc}
-
 *Total Anggota:*
 ${participants.length} Anggota
-
 *Pembuat Grup:* 
 @${m.chat.split`-`[0]}
-
 *Admin Grup:*
 ${listAdmin}
-
 *Pengaturan Bot:*
 ${antiLink ? '✅' : '❌'} Anti Link
 ${global.db.data.chats[m.chat].delete ? '❌' : '✅'} Anti Delete
@@ -43,18 +40,16 @@ ${descUpdate ? '✅' : '❌'} Deskprisi
 ${detect ? '✅' : '❌'} Detect
 ${stiker ? '✅' : '❌'} Stiker
 ${welcome ? '✅' : '❌'} Welcome
-
 *Pengaturan Pesan Bot:*
 Welcome: ${sWelcome}
 Bye: ${sBye}
 Promote: ${sPromote}
 Demote: ${sDemote}
-
 *Tersisa:*
 ${msToDate(expired - new Date() * 1)}
 `.trim()
         let mentionedJid = groupAdmins.concat([`${m.chat.split`-`[0]}@s.whatsapp.net`])
-        conn.sendFile(m.key.remoteJid, pp, 'pp.jpg', text, m, false, { contextInfo: { mentionedJid } })
+        conn.sendFile(m.key.remoteJid, pp, 'pp.jpg', caption, m, 0, { contextInfo: { mentionedJid } })
     }
 }
 handler.help = ['infogrup']
