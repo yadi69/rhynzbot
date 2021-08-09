@@ -39,21 +39,20 @@ const defaultMenu = {
 ├ Level *%level (%exp / %maxexp)* [%xp4levelup]
 ├ %totalexp XP secara Total
 │ 
-├ Tanggal: *%week , %date*
+├ Tanggal: *%week %weton, %date*
 ├ Tanggal Islam: *%dateIslamic*
-├ Waktu     : *%time*
+├ Waktu: *%time*
 │
-├ Uptime    : *%uptime (%muptime)*
-├ Database  : %rtotalreg dari %totalreg
-├ Instagram :
-├ www.instagram.com/rhy_nz
+├ Uptime: *%uptime (%muptime)*
+├ Database: %rtotalreg dari %totalreg
+├ Instagram: instagram.com/rhy_nz
 └────
 %readmore`.trimStart(),
   header: '┌─〔 %category 〕',
   body: '├ %cmd %islimit %isPremium',
   footer: '└────\n',
   after: `
-*RHYNZ-BOT*
+RHYNZ
 `,
 }
 let handler = async (m, { conn, usedPrefix: _p }) => {
@@ -152,8 +151,7 @@ let handler = async (m, { conn, usedPrefix: _p }) => {
       readmore: readMore
     }
     text = text.replace(new RegExp(`%(${Object.keys(replace).sort((a, b) => b.length - a.length).join`|`})`, 'g'), (_, name) => '' + replace[name])
-    // conn.reply(m.chat, text.trim(), m)
-    await conn.send2Button(m.chat, text.trim(), 'made with ❤️ by Rhynz', 'OWNER', '.owner', 'DONASI', '.donasi')
+    await conn.send2Button(m.chat, m.msg.contextInfo == undefined ? text.trim() : 'ketik *.ephe* untuk matikan pesan sementara supaya tombol bisa digunakan', 'made with ❤️ by rhynz', 'PEMILIK BOT', '.owner', 'DONASI', '.donasi')
   } catch (e) {
     conn.reply(m.chat, 'Maaf, menu sedang error', m)
     throw e
