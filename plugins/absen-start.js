@@ -1,4 +1,4 @@
-let handler = async (m, { usedPrefix, text }) => {
+let handler = async (m, { cons, usedPrefix, text }) => {
     conn.absen = conn.absen ? conn.absen : {}
     let id = m.chat
     if (id in conn.absen) {
