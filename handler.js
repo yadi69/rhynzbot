@@ -29,8 +29,12 @@ module.exports = {
         if (typeof user !== 'object') global.db.data.users[m.sender] = {}
         if (user) {
           if (!isNumber(user.exp)) user.exp = 0
-          if (!isNumber(user.limit)) user.limit = 10
+          if (!isNumber(user.uang)) user.uang = 0
+          if (!isNumber(user.limit)) user.limit = 5
           if (!isNumber(user.lastclaim)) user.lastclaim = 0
+          if (!isNumber(user.lastmining)) user.lastmining = 0
+          if (!isNumber(user.lastgift)) user.lastgift = 0
+          if (!isNumber(user.lastgacha)) user.lastgacha = 0
           if (!('registered' in user)) user.registered = false
           if (!user.registered) {
             if (!('name' in user)) user.name = this.getName(m.sender)
@@ -40,6 +44,7 @@ module.exports = {
           if (!isNumber(user.afk)) user.afk = -1
           if (!('afkReason' in user)) user.afkReason = ''
           if (!('banned' in user)) user.banned = false
+          if (!'warn' in user) user.warn = 0
           if (!isNumber(user.level)) user.level = 0
           if (!isNumber(user.call)) user.call = 0
           if (!user.role) user.role = 'Bronze'
@@ -47,8 +52,12 @@ module.exports = {
           if (!isNumber(user.pc)) user.pc = 0
         } else global.db.data.users[m.sender] = {
           exp: 0,
-          limit: 10,
+          uang:0,
+          limit: 5,
           lastclaim: 0,
+          lastgift: 0,
+          lastmining: 0,
+          lastgacha: 0,
           registered: false,
           name: this.getName(m.sender),
           age: -1,
@@ -56,6 +65,7 @@ module.exports = {
           afk: -1,
           afkReason: '',
           banned: false,
+          warn: 0,
           level: 0,
           call: 0,
           role: 'Bronze',
