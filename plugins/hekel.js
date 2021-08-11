@@ -1,6 +1,5 @@
-let handler  = async (m, { conn }) => {
-  conn.reply(m.chat,`“${pickRandom(global.hekel)}”`, m)
-}
+let handler = async (m, { conn, usedPrefix, command }) => {
+  await conn.sendButton(m.chat, `“${pickRandom(global.hekel)}”`, '', 'BUCIN', `${usedPrefix + command}`)
 handler.help = ['hekel']
 handler.tags = ['quotes']
 handler.command = /^(hekel)$/i
@@ -22,7 +21,8 @@ function pickRandom(list) {
   return list[Math.floor(list.length * Math.random())]
 }
 
-global.hekel = [ "Dear kamu yang tertulis di halaman defacementku.. Kapan jadi pacarku?",
+global.hekel = [ 
+"Dear kamu yang tertulis di halaman defacementku.. Kapan jadi pacarku?",
 "Kalau donlot file .iso pake command 'wget -c' biar pas putus ditengah jalan bisa nyambung lagi kayak hubungan kita",
 "Aku rela ko jadi Processor yg kepanasan, asalkan kmu yg jadi heatsink yg setiap saat bisa mendinginkan ku",
 "Gak usah nyari celah xss deh, karena ketika kamu ngeklik hatiku udah muncul pop up namamu",
@@ -51,4 +51,5 @@ global.hekel = [ "Dear kamu yang tertulis di halaman defacementku.. Kapan jadi p
 "KDE klh Cantiknya, GNOME klh Simplenya, FluxBox klh Ringannya, pokonya Semua DE itu Kalah Sama Kamu",
 "Cintamu bagaikan TeamViewer yang selalu mengendalikan hatiku",
 "/mfspayload hati/gombal/bapakmu LHOST=L.0.v.3 LPORT=007 X > RasaCinta.exe",
-"cinta kita gakan bisa dipisahkan walau setebal apapun itu firewall !! "]
+"cinta kita gakan bisa dipisahkan walau setebal apapun itu firewall !!"
+]
