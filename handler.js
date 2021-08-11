@@ -53,7 +53,7 @@ module.exports = {
         } else global.db.data.users[m.sender] = {
           exp: 0,
           uang:0,
-          limit: 5,
+          limit: 10,
           lastclaim: 0,
           lastgift: 0,
           lastmining: 0,
@@ -279,7 +279,7 @@ module.exports = {
           if (xp > 200) m.reply('Ngecit -_-') // Hehehe
           else m.exp += xp
           if (!isPrems && plugin.limit && global.db.data.users[m.sender].limit < plugin.limit * 1) {
-            this.reply(m.chat, `Limit kamu habis, silahkan beli melalui *${usedPrefix}buy*`, m)
+            this.reply(m.chat, `Limit kamu habis, silahkan beli melalui *${usedPrefix}buy / ${usedPrefix}buyx*`, m)
             continue // Limit habis
           }
           if (plugin.level > _user.level) {
