@@ -15,16 +15,17 @@ let handler = async function (m, { text, usedPrefix }) {
   user.regTime = + new Date
   user.registered = true
   let sn = createHash('md5').update(m.sender).digest('hex')
-  m.reply(`
+  let caption =`
 Daftar berhasil!
 ┌─〔 Info 〕
 ├ Nama: ${name}
 ├ Umur: ${age} tahun
 ├ Gift: Rp10000
-├ Registered: ${rtotalreg}
 ├ SN: ${sn}
 └────
-`.trim())
+`.trim()
+await conn.reply(m.chat, caption,
+global.db.data.users[m.sender].uang += 10000
 }
 handler.help = ['daftar', 'reg', 'register'].map(v => v + ' <nama>.<umur>')
 handler.tags = ['xp']
