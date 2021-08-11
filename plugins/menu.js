@@ -35,7 +35,6 @@ const defaultMenu = {
 ├ Hai, %name!
 │
 ├ Tersisa *%limit Limit*
-├ Uang *%uang*
 ├ Role *%role*
 ├ Level *%level (%exp / %maxexp)* [%xp4levelup]
 ├ %totalexp XP secara Total
