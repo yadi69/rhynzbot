@@ -8,7 +8,7 @@ let tags = {
   'sticker': 'Stiker',
   'kerang': 'Kerang Ajaib',
   'quotes': 'Quotes',
-  'admin': `Admin ${global.opts['restrict'] ? '' : '(Dinonaktifkan)'}`,
+  'admin': `Admin`,
   'group': 'Grup',
   'premium': 'Premium',
   'internet': 'Internet',
