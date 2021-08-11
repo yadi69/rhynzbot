@@ -24,12 +24,13 @@ Daftar berhasil!
 ├ SN: ${sn}
 └────
 `.trim()
-await conn.reply(m.chat, caption,
+await conn.reply(m.chat, caption,)
 global.db.data.users[m.sender].uang += 10000
 }
 handler.help = ['daftar', 'reg', 'register'].map(v => v + ' <nama>.<umur>')
 handler.tags = ['xp']
 
 handler.command = /^(daftar|reg(ister)?)$/i
+handler.disabled = false
 
 module.exports = handler
