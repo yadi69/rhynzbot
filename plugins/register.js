@@ -3,7 +3,7 @@ let Reg = /(.*)([.|])([0-9]*)$/i
 let handler = async function (m, { text, usedPrefix }) {
   let user = global.db.data.users[m.sender]
   if (user.registered === true) throw `Anda sudah terdaftar!`
-  if (!Reg.test(text)) throw `Format salah!\nContoh: *${usedPrefix}daftar Regi|18*`
+  if (!Reg.test(text)) throw `Format salah!\nContoh: *${usedPrefix}daftar rhynz.12*`
   let [_, name, splitter, age] = text.match(Reg)
   let totalreg = Object.keys(global.db.data.users).length
   if (!name) throw 'Nama tidak boleh kosong!'
