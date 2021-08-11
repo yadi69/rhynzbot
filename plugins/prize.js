@@ -1,25 +1,21 @@
-let data = require('../lib/gacha')
 let handler = async (m, { conn }) => {
-  let LastGacha = global.DATABASE._data.users[m.sender].lastclaim
-let cdj = `${JaM(new Date - LastGacha)}`
-let cdm = `${MeNit(new Date - LastGacha)}`
-let cds = `${DeTik(new Date - LastGacha)}`
+  let LastClaim = global.db.data.users[m.sender].lastclaim
+let cdj = `${JaM(new Date - LastClaim)}`
+let cdm = `${MeNit(new Date - LastClaim)}`
+let cds = `${DeTik(new Date - LastClaim)}`
 let cd1 = Math.ceil(23 - cdj)
 let cd2 = Math.ceil(59 - cdm)
 let cd3 = Math.ceil(60 - cds)
-let parse = JSON.parse(data)
-let random = Math.floor(Math.random() * parse.length);
-let json = parse[random]
-  if (new Date - global.db.data.users[m.sender].lastgacha > 86400000) {
-    global.db.data.users[m.sender].uang += json.uang * 1
-    global.db.data.users[m.sender].exp += 100
-    m.reply(`Selamat anda mendapatkan +Rp${json.uang}`)
-    global.db.data.users[m.sender].lastgacha = new Date * 1
-  } else throw `Anda sudah mengklaim harian hari ini.\n\nTunggu ${cd1} Jam ${cd2} Menit ${cd3} Detik!`
+  if (new Date - global.db.data.users[m.sender].lastclaim > 86400000) {
+    global.DATABASE._data.users[m.sender].uang += 333333
+    global.DATABASE._data.users[m.sender].exp += 150
+    m.reply('Hadiah Prize Anda +Rp333333')
+    global.DATABASE._data.users[m.sender].lastclaim = new Date * 1
+  } else throw `Anda sudah mengklaim prize.\n\nTunggu ${cd1} Jam ${cd2} Menit ${cd3} Detik!`
 }
-handler.help = ['gacha']
+handler.help = ['prize']
 handler.tags = ['Player']
-handler.command = /^(gacha)$/i
+handler.command = /^(prize)$/i
 handler.owner = false
 handler.mods = false
 handler.premium = false

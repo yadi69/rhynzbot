@@ -1,54 +1,19 @@
-let pajak = 0.10
-let handler = async (m, { conn, text, usedPrefix, command }) => {
-    let fail = `perintah ini buat ngasih uang ke pengguna lain\n\ncontoh:\n${usedPrefix + command} @6282261637676 10\natau balas pesan doi dengan perintah: ${usedPrefix + command} 10`
-    let who
-    if (m.isGroup) who = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted.sender
-    else who = m.chat
-    if (!who) {
-        conn.reply(m.chat, fail, m, { contextInfo: { mentionedJid: ['6282261637676@s.whatsapp.net'] } })
-        throw false
-    }
-    if (typeof global.db.data.users[who] == "undefined") {
-        global.db.data.users[who] = {
-            exp: 0,
-			uang:0,
-            limit: 10,
-            lastclaim: 0,
-			lastgift: 0,
-			lastmining: 0,
-			lastgacha: 0,
-            registered: false,
-            name: conn.getName(m.sender),
-            age: -1,
-            regTime: -1,
-            afk: -1,
-            afkReason: '',
-            banned: false,
-            level: 0,
-            call: 0,
-            role: 'Bronze',
-            autolevelup: false,
-            pc: 0,
-        }
-    }
-    let txt = text.replace('@' + who.split`@`[0], '').trim()
-    if (!txt) {
-        conn.reply(m.chat, fail, m, { contextInfo: { mentionedJid: ['6282261637676@s.whatsapp.net'] } })
-        throw false
-    }
-    if (isNaN(txt)) throw 'Hanya angka'
-    let duit = parseInt(txt)
-    let uang = duit
-    let pjk = Math.ceil(duit * pajak)
-    uang += pjk
-    if (uang < 1) throw 'minimal 1'
-    let users = global.db.data.users
-    if (limit > users[m.sender].limit) throw 'uang tidak mencukupi untuk mentransfer, ada pajaknya juga'
-    users[m.sender].uang -= uang
-    users[who].uang += duit
-
-    m.reply(`(${-duit} uang) + (${-pjk} uang (Pajak 2%)) = ( ${-uang} uang)`)
-    conn.fakeReply(m.chat, `+${duit} uang`, who, m.text)
+let data = require ('../lib/gacha')
+let handler = async (m, { conn, text }) => {
+let LastGift = global.db.data.users[m.sender].lastgift
+let cdm = `${MeNit(new Date - LastGift)}`
+let cds = `${DeTik(new Date - LastGift)}`
+let cd1 = Math.ceil(59 - cdm)
+let cd2 = Math.ceil(60 - cds)
+let parse = JSON.parse(data)
+let random = Math.floor(Math.random() * parse.length);
+let json = parse[random]
+  if (new Date - global.db.data.users[m.sender].lastgift > 3600000) {
+    global.db.data.users[m.sender].uang += json.uang * 1
+    global.db.data.users[m.sender].exp += 500
+    m.reply(`Selamat anda mendapatkan +Rp${json.uang}`)
+    global.db.data.users[m.sender].lastgift = new Date * 1
+  } else m.reply(`Silahkan Menunggu *${cd1}* Menit *${cd2}* Detik Lagi!`)
 }
 handler.help = ['gift']
 handler.tags = ['xp','premium']
@@ -66,3 +31,12 @@ handler.limit = false
 
 module.exports = handler
 
+function MeNit(ms) {
+  let m = isNaN(ms) ? '60' : Math.floor(ms / 60000) % 60
+  return [m].map(v => v.toString().padStart(2, 0) ).join(':')
+}
+
+function DeTik(ms) {
+  let s = isNaN(ms) ? '60' : Math.floor(ms / 1000) % 60
+  return [s].map(v => v.toString().padStart(2, 0) ).join(':')
+}
