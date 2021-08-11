@@ -7,10 +7,10 @@ let cd1 = Math.ceil(23 - cdj)
 let cd2 = Math.ceil(59 - cdm)
 let cd3 = Math.ceil(60 - cds)
   if (new Date - global.db.data.users[m.sender].lastclaim > 86400000) {
-    global.DATABASE._data.users[m.sender].uang += 333333
-    global.DATABASE._data.users[m.sender].exp += 150
+    global.db.data.users[m.sender].uang += 333333
+    global.db.data.users[m.sender].exp += 150
     m.reply('Hadiah Prize Anda +Rp333333')
-    global.DATABASE._data.users[m.sender].lastclaim = new Date * 1
+    global.db.data.users[m.sender].lastclaim = new Date * 1
   } else throw `Anda sudah mengklaim prize.\n\nTunggu ${cd1} Jam ${cd2} Menit ${cd3} Detik!`
 }
 handler.help = ['prize']
