@@ -58,7 +58,7 @@ RHYNZ
 let handler = async (m, { conn, usedPrefix: _p }) => {
   try {
     let package = JSON.parse(await fs.promises.readFile(path.join(__dirname, '../package.json')).catch(_ => '{}'))
-    let { exp, limit, level, role, registered } = global.db.data.users[m.sender]
+    let { exp, uang, limit, level, role, registered } = global.db.data.users[m.sender]
     let { min, xp, max } = levelling.xpRange(level, global.multiplier)
     let name = registered ? global.db.data.users[m.sender].name : conn.getName(m.sender)
     let d = new Date(new Date + 3600000)
@@ -143,6 +143,7 @@ let handler = async (m, { conn, usedPrefix: _p }) => {
       npmdesc: package.description,
       version: package.version,
       exp: exp - min,
+      saldo: uang,
       maxexp: xp,
       totalexp: exp,
       xp4levelup: max - exp <= 0 ? `Siap untuk *${_p}levelup*` : `${max - exp} XP lagi untuk levelup`,
@@ -164,6 +165,7 @@ handler.owner = false
 handler.mods = false
 handler.premium = false
 handler.group = false
+handler.register = false
 handler.private = false
 
 handler.admin = false
