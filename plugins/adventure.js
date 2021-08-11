@@ -10,7 +10,7 @@ let yoi = Math.floor(Math.random() * 10) + 100
 let yoih = Math.floor(Math.random() * 10) + 100
 let bekal = Math.floor(Math.random() * 2) + 12
 global.db.data.users[m.sender].exp += isPrems ? yoih : yoi
-m.reply(`*Perjalanan Kamu Berhenti*\nhanya Sampai di *🏳️${country}*\n*Dikarenakan :* ${text}\n\nhadiah kamu !\n**️⃣ Exp :* +${isPrems ? yoih : yoi}\n*🍒 Buah :* ${bekal}\n\n*@Rizxyu*`)
+m.reply(`*Perjalanan Kamu Berhenti*\nhanya Sampai di *🏳️${country}*\n*Dikarenakan :* ${text}\n\nhadiah kamu !\n**️⃣ Exp :* +${isPrems ? yoih : yoi}\n*🍒 Buah :* ${bekal}\n\n*@Rhynz*`)
 }
 
 handler.help = ['adventure']
