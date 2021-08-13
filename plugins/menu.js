@@ -2,15 +2,13 @@ let fs = require('fs')
 let path = require('path')
 let levelling = require('../lib/levelling')
 let tags = {
-	'info': 'Info',
   'main': 'Utama',
-  'rpg': 'Epic RPG',
   'game': 'Game',
   'xp': 'Exp & Limit',
   'sticker': 'Stiker',
-  'fun': 'Fun',
   'kerang': 'Kerang Ajaib',
   'quotes': 'Quotes',
+  'admin': `Admin ${global.opts['restrict'] ? '' : '(Dinonaktifkan)'}`,
   'group': 'Grup',
   'premium': 'Premium',
   'internet': 'Internet',
@@ -18,26 +16,28 @@ let tags = {
   'nulis': 'MagerNulis & Logo',
   'downloader': 'Downloader',
   'tools': 'Tools',
-   'vote': 'Voting',
+  'fun': 'Fun',
+  'database': 'Database',
+  'vote': 'Voting',
   'absen': 'Absen',
   'quran': 'Al Qur\'an',
   'audio': 'Pengubah Suara',
   'jadibot': 'Jadi Bot',
   'owner': 'Owner',
   'host': 'Host',
-  'admin': `Admin ${global.opts['restrict'] ? '' : '(Dinonaktifkan)'}`,
   'advanced': 'Advanced',
+  'info': 'Info',
   '': 'Tanpa Kategori',
-  'database': 'Database',
 }
 const defaultMenu = {
   before: `
-┌─〔 %me 〕
+┌─〔 RHYNZ-BOT 〕
 ├ Hai, %name!
 │
 ├ Tersisa *%limit Limit*
 ├ Role *%role*
 ├ Level *%level (%exp / %maxexp)* [%xp4levelup]
+├ %totalexp XP secara Total
 │ 
 ├ Tanggal: *%week %weton, %date*
 ├ Tanggal Islam: *%dateIslamic*
@@ -151,9 +151,8 @@ let handler = async (m, { conn, usedPrefix: _p }) => {
       level, limit, name, weton, week, date, dateIslamic, time, totalreg, rtotalreg, role,
       readmore: readMore
     }
-     text = text.replace(new RegExp(`%(${Object.keys(replace).sort((a, b) => b.length - a.length).join`|`})`, 'g'), (_, name) => '' + replace[name])
-    let q = m.quoted ? m.quoted : m
-    await conn.send2Button(m.chat, q.contextInfo == undefined ? text.trim() : 'ketik *.ephe* untuk matikan pesan sementara supaya tombol bisa digunakan', 'made with ❤️ by rhynz', 'PEMILIK BOT', '.owner', 'DONASI', '.donasi', { quoted: m })
+    text = text.replace(new RegExp(`%(${Object.keys(replace).sort((a, b) => b.length - a.length).join`|`})`, 'g'), (_, name) => '' + replace[name])
+    await conn.send2Button(m.chat, m.msg.contextInfo == undefined ? text.trim() : 'ketik *.ephe* untuk matikan pesan sementara supaya tombol bisa digunakan', 'made with ❤️ by rhynz', 'PEMILIK BOT', '.owner', 'DONASI', '.donasi')
   } catch (e) {
     conn.reply(m.chat, 'Maaf, menu sedang error', m)
     throw e
