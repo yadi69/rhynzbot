@@ -97,7 +97,7 @@ module.exports = {
                 if (!isNumber(user.age)) user.age = -1
                 if (!isNumber(user.regTime)) user.regTime = -1
             }
-            if (!('autolevelup' in user)) user.autolevelup = false
+            if (!('autolevelup' in user)) user.autolevelup = true
           if (!isNumber(user.pc)) user.pc = 0
           if (!isNumber(user.warning)) user.warning = 0
         } else global.db.data.users[m.sender] = {
