@@ -29,12 +29,8 @@ module.exports = {
         if (typeof user !== 'object') global.db.data.users[m.sender] = {}
         if (user) {
           if (!isNumber(user.exp)) user.exp = 0
-          if (!isNumber(user.uang)) user.uang = 0
           if (!isNumber(user.limit)) user.limit = 5
           if (!isNumber(user.lastclaim)) user.lastclaim = 0
-          if (!isNumber(user.lastmining)) user.lastmining = 0
-          if (!isNumber(user.lastgift)) user.lastgift = 0
-          if (!isNumber(user.lastgacha)) user.lastgacha = 0
           if (!('registered' in user)) user.registered = false
           if (!user.registered) {
             if (!('name' in user)) user.name = this.getName(m.sender)
@@ -44,20 +40,16 @@ module.exports = {
           if (!isNumber(user.afk)) user.afk = -1
           if (!('afkReason' in user)) user.afkReason = ''
           if (!('banned' in user)) user.banned = false
-          if (!'warn' in user) user.warn = 0
           if (!isNumber(user.level)) user.level = 0
           if (!isNumber(user.call)) user.call = 0
           if (!user.role) user.role = 'Bronze'
           if (!('autolevelup' in user)) user.autolevelup = false
           if (!isNumber(user.pc)) user.pc = 0
+          if (!isNumber(user.warning)) user.warning = 0
         } else global.db.data.users[m.sender] = {
           exp: 0,
-          uang:0,
-          limit: 10,
+          limit: 5,
           lastclaim: 0,
-          lastgift: 0,
-          lastmining: 0,
-          lastgacha: 0,
           registered: false,
           name: this.getName(m.sender),
           age: -1,
@@ -65,12 +57,12 @@ module.exports = {
           afk: -1,
           afkReason: '',
           banned: false,
-          warn: 0,
           level: 0,
           call: 0,
           role: 'Bronze',
           autolevelup: false,
           pc: 0,
+          warning: 0,
         }
 
         let chat = global.db.data.chats[m.chat]
@@ -88,6 +80,7 @@ module.exports = {
           if (!('delete' in chat)) chat.delete = false
           if (!('antiLink' in chat)) chat.antiLink = false
           if (!isNumber(chat.expired)) chat.expired = 0
+          if (!('antiBadword' in chat)) chat.antiBadword = true
         } else global.db.data.chats[m.chat] = {
           isBanned: false,
           welcome: false,
@@ -101,6 +94,7 @@ module.exports = {
           delete: false,
           antiLink: false,
           expired: 0,
+          antiBadword: true,
         }
 
         let settings = global.db.data.settings
@@ -275,11 +269,11 @@ module.exports = {
           }
 
           m.isCommand = true
-          let xp = 'exp' in plugin ? parseInt(plugin.exp) : 10 // Pendapatkan XP per Command
+          let xp = 'exp' in plugin ? parseInt(plugin.exp) : 17 // Pendapatkan XP per Command
           if (xp > 200) m.reply('Ngecit -_-') // Hehehe
           else m.exp += xp
           if (!isPrems && plugin.limit && global.db.data.users[m.sender].limit < plugin.limit * 1) {
-            this.reply(m.chat, `Limit kamu habis, silahkan beli melalui *${usedPrefix}buy / ${usedPrefix}buyx*`, m)
+            this.reply(m.chat, `Limit kamu habis, silahkan beli melalui *${usedPrefix}buy*`, m)
             continue // Limit habis
           }
           if (plugin.level > _user.level) {
@@ -391,7 +385,7 @@ module.exports = {
             } catch (e) {
             } finally {
               text = (action === 'add' ? (chat.sWelcome || this.welcome || conn.welcome || 'Selamat datang, @user!').replace('@subject', this.getName(jid)).replace('@desc', groupMetadata.desc) :
-                (chat.sBye || this.bye || conn.bye || 'Sampai jumpa, @user!')).replace('@user', '@' + user.split`@`[0])
+                (chat.sBye || this.bye || conn.bye || 'Sampai jumpa, @user!')).replace(/@user/g, '@' + user.split`@`[0])
               let wel = `https://hardianto-chan.herokuapp.com/api/tools/welcomer2?name=${encodeURIComponent(this.getName(user))}&descriminator=${user.split(`@`)[0].substr(-5)}&totalmem=${encodeURIComponent(groupMetadata.participants.length)}&namegb=${encodeURIComponent(this.getName(jid))}&ppuser=${pp}&background=https://i.ibb.co/KhtRxwZ/dark.png&apikey=hardianto`
               let lea = `https://hardianto-chan.herokuapp.com/api/tools/leave2?name=${encodeURIComponent(this.getName(user))}&descriminator=${user.split(`@`)[0].substr(-5)}&totalmem=${encodeURIComponent(groupMetadata.participants.length)}&namegb= ${encodeURIComponent(this.getName(jid))}&ppuser=${pp}&background=https://i.ibb.co/KhtRxwZ/dark.png&apikey=hardianto`
 
@@ -424,6 +418,7 @@ module.exports = {
     if (chat.delete) return
     await this.sendButton(m.key.remoteJid, `
 Terdeteksi @${m.participant.split`@`[0]} telah menghapus pesan
+
 ketik *.on delete* untuk mematikan pesan ini
 `.trim(), '', 'MATIKAN ANTI DELETE', ',on delete', {
       quoted: m.message,
@@ -456,7 +451,9 @@ ketik *.on delete* untuk mematikan pesan ini
     if (!global.db.data.chats[jid].descUpdate) return
     let caption = `
 @${descOwner.split`@`[0]} telah mengubah deskripsi grup.
+
 ${desc}
+
 ketik *.off desc* untuk mematikan pesan ini
     `.trim()
     this.sendButton(jid, caption, '', 'MATIKAN DESKRIPSI', ',off desc', { contextInfo: { mentionedJid: this.parseMention(caption) } })
@@ -473,7 +470,7 @@ global.dfail = (type, m, conn) => {
     private: 'Perintah ini hanya dapat digunakan di Chat Pribadi',
     admin: 'Perintah ini hanya untuk *Admin* grup',
     botAdmin: 'Jadikan bot sebagai *Admin* untuk menggunakan perintah ini',
-    unreg: 'Silahkan daftar untuk menggunakan fitur ini dengan cara mengetik:\n\n*#daftar nama.umur*\n\nContoh: *#daftar rhynz.19*',
+    unreg: 'Silahkan daftar untuk menggunakan fitur ini dengan cara mengetik:\n\n*#daftar nama.umur*\n\nContoh: *#daftar Arif.19*',
     nsfw: 'NSFW tidak aktif'
   }[type]
   if (msg) return m.reply(msg)
