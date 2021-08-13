@@ -2,14 +2,12 @@ let fs = require('fs')
 let path = require('path')
 let levelling = require('../lib/levelling')
 let tags = {
-	'info': 'Info',
   'main': 'Utama',
+'info': 'Info',
+  'xp': 'Exp & Limit',
   'rpg': 'Epic RPG',
   'game': 'Game',
-  'xp': 'Exp & Limit',
   'sticker': 'Stiker',
-  'fun': 'Fun',
-  'kerang': 'Kerang Ajaib',
   'quotes': 'Quotes',
   'group': 'Grup',
   'premium': 'Premium',
@@ -23,12 +21,14 @@ let tags = {
   'quran': 'Al Qur\'an',
   'audio': 'Pengubah Suara',
   'jadibot': 'Jadi Bot',
-  'owner': 'Owner',
   'host': 'Host',
-  'admin': `Admin ${global.opts['restrict'] ? '' : '(Dinonaktifkan)'}`,
   'advanced': 'Advanced',
+  'fun': 'Fun',
+  'kerang': 'Kerang Ajaib',
   '': 'Tanpa Kategori',
   'database': 'Database',
+  'owner': 'Owner',
+  'admin': `Admin ${global.opts['restrict'] ? '' : '(Dinonaktifkan)'}`,
 }
 const defaultMenu = {
   before: `
