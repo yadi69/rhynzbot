@@ -7,6 +7,9 @@ let handler = async m => m.reply(`
 ├ OVO, Dana, Gopay [082261637676]
 └────
 
+┌〔 Donasi • Link 〕
+├ saweria : saweria.co/rhynz
+└────
 Dukung Rhynz hanya dengan membuka link dibawah ini, dan ikuti tujuannya
 `.trim())
 handler.help = ['donasi']

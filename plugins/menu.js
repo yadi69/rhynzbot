@@ -2,13 +2,15 @@ let fs = require('fs')
 let path = require('path')
 let levelling = require('../lib/levelling')
 let tags = {
+	'info': 'Info',
   'main': 'Utama',
+  'rpg': 'Epic RPG',
   'game': 'Game',
   'xp': 'Exp & Limit',
   'sticker': 'Stiker',
+  'fun': 'Fun',
   'kerang': 'Kerang Ajaib',
   'quotes': 'Quotes',
-  'admin': `Admin ${global.opts['restrict'] ? '' : '(Dinonaktifkan)'}`,
   'group': 'Grup',
   'premium': 'Premium',
   'internet': 'Internet',
@@ -16,28 +18,26 @@ let tags = {
   'nulis': 'MagerNulis & Logo',
   'downloader': 'Downloader',
   'tools': 'Tools',
-  'fun': 'Fun',
-  'database': 'Database',
-  'vote': 'Voting',
+   'vote': 'Voting',
   'absen': 'Absen',
   'quran': 'Al Qur\'an',
   'audio': 'Pengubah Suara',
   'jadibot': 'Jadi Bot',
   'owner': 'Owner',
   'host': 'Host',
+  'admin': `Admin ${global.opts['restrict'] ? '' : '(Dinonaktifkan)'}`,
   'advanced': 'Advanced',
-  'info': 'Info',
   '': 'Tanpa Kategori',
+  'database': 'Database',
 }
 const defaultMenu = {
   before: `
-┌─〔 RHYNZ-BOT 〕
+┌─〔 %me 〕
 ├ Hai, %name!
 │
 ├ Tersisa *%limit Limit*
 ├ Role *%role*
 ├ Level *%level (%exp / %maxexp)* [%xp4levelup]
-├ %totalexp XP secara Total
 │ 
 ├ Tanggal: *%week %weton, %date*
 ├ Tanggal Islam: *%dateIslamic*
@@ -165,7 +165,7 @@ handler.owner = false
 handler.mods = false
 handler.premium = false
 handler.group = false
-handler.register = false
+handler.register = true
 handler.private = false
 
 handler.admin = false

@@ -8,6 +8,6 @@ let handler = async (m, { conn, args }) => {
 handler.help = [].map(v => v + ' <url>')
 handler.tags = ['downloader']
 
-handler.command = /^\x00s$/i
+handler.command = /^(smule)$/i
 
 module.exports = handler
