@@ -14,14 +14,14 @@ handler.all = async function (m, { isPrems, isOwner }) {
         //     let tiktok = JSON.stringify(res)
         //     let json = JSON.parse(tiktok)
         //     // m.reply(require('util').format(json))
-        //     await this.sendVideo(m.chat, json.nowm, '*© stikerin*', m, { thumbnail: buf })
+        //     await this.sendVideo(m.chat, json.nowm, '*© rhynz*', m, { thumbnail: buf })
         // }).catch(_ => _)
         let res = await fetch(global.API('hardianto', '/api/download/tiktok', { url: m.text.split` `[0] }, 'apikey'))
         if (!res.ok) throw await `${res.status} ${res.statusText}`
         let json = await res.json()
         await m.reply(global.wait)
-        // await this.sendVideo(m.chat, json.wm, '© stikerin', m)
-        await this.sendFile(m.chat, json.wm, '', '© stikerin', m)
+        // await this.sendVideo(m.chat, json.wm, '© rhynz', m)
+        await this.sendFile(m.chat, json.wm, '', '© rhynz', m)
     }
 
     if (/^.*cocofun/i.test(m.text)) {
@@ -49,7 +49,7 @@ handler.all = async function (m, { isPrems, isOwner }) {
             let json = JSON.parse(igdl)
             await m.reply(global.wait)
             for (let { downloadUrl, type } of json) {
-                this.sendFile(m.chat, downloadUrl, 'ig' + (type == 'image' ? '.jpg' : '.mp4'), '© stikerin', m, 0, { thumbnail: await (await fetch(downloadUrl)).buffer() })
+                this.sendFile(m.chat, downloadUrl, 'ig' + (type == 'image' ? '.jpg' : '.mp4'), '© rhynz', m, 0, { thumbnail: await (await fetch(downloadUrl)).buffer() })
             }
         }).catch(_ => _)
     }
@@ -60,7 +60,7 @@ handler.all = async function (m, { isPrems, isOwner }) {
             let json = JSON.parse(pin)
             if (!json.status) return m.reply(`Tidak dapat diunduh`)
             await m.reply(global.wait)
-            await this.sendFile(m.chat, json.data.url, '', `© stikerin`, m)
+            await this.sendFile(m.chat, json.data.url, '', `© rhynz`, m)
         }).catch(_ => _)
     }
 
@@ -102,7 +102,7 @@ handler.all = async function (m, { isPrems, isOwner }) {
 *Ukuran File Video:* ${yt2.filesizeF}
 *Server y2mate:* ${usedServer}
           `.trim(),
-            thumb, '© stikerin', 'AUDIO', `.yta ${vid.url}`, 'VIDEO', `.yt ${vid.url}`)
+            thumb, '© rhynz', 'AUDIO', `.yta ${vid.url}`, 'VIDEO', `.yt ${vid.url}`)
     }
 
 }
