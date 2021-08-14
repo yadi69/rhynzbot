@@ -106,7 +106,7 @@ let handler = async m => m.reply(`
 ╰────「 rhynz 」
 `.trim()) // Tambah sendiri kalo mau
 handler.help = ['modapk']
-handler.tags = ['tools']
+handler.tags = ['premium']
 handler.command = /^(modapk)$/i
 handler.group = false
 handler.premium = true
