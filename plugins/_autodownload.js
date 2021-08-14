@@ -39,7 +39,7 @@ handler.all = async function (m, { isPrems, isOwner }) {
             m.reply(require('util').format(json))
             if (!json.status) throw json
             await m.reply(global.wait)
-            await this.sendFile(m.chat, json.data[1] != undefined ? json.data[1].url : json.data[0].url, '© stikerin', m)
+            await this.sendFile(m.chat, json.data[1] != undefined ? json.data[1].url : json.data[0].url, '© rhynz', m)
         }).catch(_ => _)
     }
 
