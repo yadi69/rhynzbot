@@ -34,7 +34,7 @@ Bonus: ${poin} XP
     `.trim()
   conn.tebakgambar[id] = [
     // await conn.sendFile(m.chat, json.result.images, 'tebakgambar.jpg', caption, m, false, { thumbnail: await (await fetch(json.result.images)).buffer() })
-    await conn.sendButtonImg(m.chat, caption, await (await fetch(json.img)).buffer(), '© stikerin', 'BANTUAN', '.hint')
+    await conn.sendButtonImg(m.chat, caption, await (await fetch(json.img)).buffer(), '© rhynz', 'BANTUAN', '.hint')
     ,
     json, poin,
     setTimeout(() => {
