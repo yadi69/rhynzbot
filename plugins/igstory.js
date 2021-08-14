@@ -9,7 +9,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
     let igs = JSON.stringify(res)
     let json = JSON.parse(igs)
     for (let { downloadUrl, type } of json)
-      conn.sendFile(m.chat, downloadUrl, 'ig' + (type == 'image' ? '.jpg' : '.mp4'), '*© stikerin*', m, { thumbnail: Buffer.alloc(0) })
+      conn.sendFile(m.chat, downloadUrl, 'ig' + (type == 'image' ? '.jpg' : '.mp4'), '*© rhynz*', m, { thumbnail: Buffer.alloc(0) })
 
   })
 
