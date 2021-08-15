@@ -15,7 +15,7 @@ let handler = async m => m.reply(`
 ┗ ┅ ━━━━━━━━━━━━━━━━━━━━ ┅ ━
 `.trim()) // Tambah sendiri kalo mau
 handler.help = ['overf']
-handler.tags = ['weebs','premium']
+handler.tags = ['premium']
 handler.command = /^overf$/i
 handler.register = true
 handler.group = true
