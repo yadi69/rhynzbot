@@ -15,7 +15,7 @@ let handler = async (m, { conn }) => {
     }
 }
 handler.help = ['wallpaperanime','wpanime']
-handler.tags = ['weebs']
+handler.tags = ['premium']
 handler.command = /^(wallpaper|wp)anime$/i
 handler.premium = true
 handler.register = true
