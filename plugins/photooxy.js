@@ -70,7 +70,7 @@ lolpentakill
   await conn.sendFile(m.chat, url, 'photooxy.jpg', `*PHOTOOXY*\n*Effect:* ${effect}`, m)
 }
 handler.help = ['photooxy <effect|teks>']
-handler.tags = ['creator']
+handler.tags = ['premium']
 handler.command = /^(photooxy)$/i
 handler.owner = false
 handler.mods = false
