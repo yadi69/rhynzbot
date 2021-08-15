@@ -494,7 +494,7 @@ https://nhentai.net/g/247574/ Watashi no Onii-chan Extra
 `.trim(), m)
 }
 handler.help = ['kodenuklir']
-handler.tags = ['weebs','premium']
+handler.tags = ['premium']
 handler.command = /^(kodenuklir)$/i
 handler.owner = false
 handler.mods = false
