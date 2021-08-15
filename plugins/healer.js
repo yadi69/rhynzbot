@@ -34,7 +34,7 @@ let handler = async m => m.reply(`
 ┗ ┅ ━━━━━━━━━━━━━━━━━━━━ ┅ ━
 `.trim()) // Tambah sendiri kalo mau
 handler.help = ['healer']
-handler.tags = ['weebs','premium']
+handler.tags = ['premium']
 handler.command = /^heal$/i
 handler.register = true
 handler.group = true
