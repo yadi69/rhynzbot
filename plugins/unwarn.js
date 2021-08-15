@@ -14,7 +14,7 @@ let handler = async (m, { conn, args }) => {
 }
 
 handler.help = ['unwarn @mention']
-handler.tags = ['owner']
+handler.tags = ['grup']
 handler.command = /^unwarn(user)?$/i
 handler.mods = true
 handler.group = true
