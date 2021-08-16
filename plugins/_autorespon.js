@@ -1,43 +1,42 @@
 let fs = require('fs')
 let handler = m => m
-
 handler.all = async function (m, { isBlocked }) {
-
     if (isBlocked) return
     if (m.isBaileys) return
     if (m.chat.endsWith('broadcast')) return
-    let setting = global.db.data.settings
-    let { isBanned } = global.db.data.chats[m.chat]
+    let setting = db.data.settings
+    let { isBanned } = db.data.chats[m.chat]
+    let { banned } = db.data.users[m.sender]
 
     // ketika ditag
     try {
         if (m.mentionedJid.includes(this.user.jid) && m.isGroup) {
-            await this.send2Button(m.chat, m.msg.contextInfo.expiration == 604800 ? '\n\nketik *.ephe* untuk matiin pesan sementaranya, biar tombolnya bisa dipake' : 'uhm.. iya ada apa?', '© rhynz', `${isBanned ? 'UNBAN' : 'MENU'}`, `${isBanned ? '.unban' : '.?'}`, `${!m.isGroup ? 'DONASI' : isBanned ? 'UNBAN' : 'BAN'}`, `${!m.isGroup ? '.donasi' : isBanned ? '.unban' : '.ban'}`)
+            await this.send2Button(m.chat,
+                isBanned ? 'bot tidak aktif' : banned ? 'kamu dibanned' : 'bot disini',
+                '© rhynz',
+                isBanned ? 'UNBAN' : banned ? 'PEMILIK BOT' : 'MENU',
+                isBanned ? '.unban' : banned ? '.owner' : '.?',
+                m.isGroup ? 'BAN' : isBanned ? 'UNBAN' : 'DONASI',
+                m.isGroup ? '.ban' : isBanned ? '.unban' : '.donasi')
         }
     } catch (e) {
         return
-    }
-
+	@@ -21,11 +28,8 @@ handler.all = async function (m, { isBlocked }) {
     // ketika ada yang invite/kirim link grup di chat pribadi
     if ((m.mtype === 'groupInviteMessage' || m.text.startsWith('https://chat') || m.text.startsWith('Buka tautan ini')) && !m.isBaileys && !m.isGroup) {
         this.sendButton(m.chat, `┌〔 Undang Bot ke Grup 〕
-│ 
-├ 7 Hari / Rp 0
-├ 30 Hari / Rp 0
-│ 
-├ Hubungi @${global.owner[0]}
+├ 7 Hari / Rp 5,000
+├ 30 Hari / Rp 10,000
 └────
 
-`.trim(), m, { contextInfo: { mentionedJid: [global.owner[0] + '@s.whatsapp.net'] } })
+`.trim(), '© rhynz', 'PEMILIK BOT', ',owner', { contextInfo: { mentionedJid: [global.owner[0] + '@s.whatsapp.net'] } })
     }
-
     // salam
     let reg = /(ass?alam|اَلسَّلاَمُ عَلَيْكُمْ|السلام عليکم)/i
     let isSalam = reg.exec(m.text)
     if (isSalam && !m.fromMe) {
         m.reply(`وَعَلَيْكُمْ السَّلاَمُ وَرَحْمَةُ اللهِ وَبَرَكَاتُهُ\n_wa\'alaikumussalam wr.wb._`)
     }
-
     // backup db
     if (setting.backup) {
         if (new Date() * 1 - setting.backupDB > 1000 * 60 * 60) {
@@ -53,26 +52,21 @@ handler.all = async function (m, { isBlocked }) {
             setting.backupDB = new Date() * 1
         }
     }
-
     // update status
     if (new Date() * 1 - setting.status > 1000) {
         let _uptime = process.uptime() * 1000
         let uptime = clockString(_uptime)
-        await this.setStatus(`Aktif selama ${uptime} | Mode: ${global.opts['self'] ? 'Private' : setting.groupOnly ? 'Hanya Grup' : 'Publik'} | oleh rhynz`).catch(_ => _)
+        await this.setStatus(`Aktif selama ${uptime} | Mode: ${global.opts['self'] ? 'Private' : setting.groupOnly ? 'Hanya Grup' : 'Publik'} | rhynz`).catch(_ => _)
         setting.status = new Date() * 1
     }
-
 }
-
 module.exports = handler
-
 function clockString(ms) {
     let h = isNaN(ms) ? '--' : Math.floor(ms / 3600000)
     let m = isNaN(ms) ? '--' : Math.floor(ms / 60000) % 60
     let s = isNaN(ms) ? '--' : Math.floor(ms / 1000) % 60
     return [h, m, s].map(v => v.toString().padStart(2, 0)).join(':')
 }
-
 function pickRandom(list) {
     return list[Math.floor(Math.random() * list.length)]
 }
