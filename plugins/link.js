@@ -1,5 +1,5 @@
 let handler = async (m, { conn, args }) => {
-  let group = m.chat
+ let group = args[0] ? args[0] : m.chat
   if (/^[0-9]{5,16}-[0-9]+@g\.us$/.test(args[0])) group = args[0]
   if (!/^[0-9]{5,16}-[0-9]+@g\.us$/.test(group)) throw 'Hanya bisa dibuka di grup'
   let groupMetadata = await conn.groupMetadata(group)
