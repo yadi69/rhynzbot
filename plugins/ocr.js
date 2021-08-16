@@ -12,6 +12,7 @@ let handler = async (m, { usedPrefix, command }) => {
     let res = await fetch(global.API('jonaz', '/ocr', { url }, ''))
     if (!res.ok) throw await `${res.status} ${res.statusText}`
     let json = await res.json()
+    if (!json.resultadoOCR) throw json
     m.reply(json.resultadoOCR)
 
 }
