@@ -10,12 +10,14 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
 		'off': true,
 		'0': true,
 	}[(args[0] || '')]
-	if (isClose === undefined)
-		throw `
+	if (isClose === undefined) {
+		await conn.send2Button(m.chat, `
 contoh:
 ${usedPrefix + command} tutup
 ${usedPrefix + command} buka
-`.trim()
+`.trim(), '© rhynz', 'BUKA', ',grup 1', 'TUTUP', ',grup 0')
+		throw false
+	}
 	await conn.groupSettingChange(m.chat, GroupSettingChange.messageSend, isClose)
 }
 handler.help = ['group <buka/tutup>']
