@@ -31,7 +31,7 @@ handler.all = async function (m, { isBlocked }) {
 ├ 7 Hari / Rp 5,000
 ├ 30 Hari / Rp 10,000
 └────
-https://github.com/ariffb25/stikerinbot
+
 `.trim(), '© rhynz', 'PEMILIK BOT', ',owner', { contextInfo: { mentionedJid: [global.owner[0] + '@s.whatsapp.net'] } })
     }
 
