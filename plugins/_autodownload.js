@@ -7,29 +7,25 @@ let handler = m => m
 
 handler.all = async function (m, { isPrems, isOwner }) {
 
-    if (m.chat.endsWith('broadcast')) return
+  if (m.chat.endsWith('broadcast')) return
+    if (db.data.users[m.sender].banned) return
+    if (db.data.chats[m.chat].isBanned) return
 
     if (/^.*tiktok/i.test(m.text)) {
-        // tiktok(m.text).then(async res => {
-        //     let tiktok = JSON.stringify(res)
-        //     let json = JSON.parse(tiktok)
-        //     // m.reply(require('util').format(json))
-        //     await this.sendVideo(m.chat, json.nowm, '*© rhynz*', m, { thumbnail: buf })
-        // }).catch(_ => _)
-        let res = await fetch(global.API('hardianto', '/api/download/tiktok', { url: m.text.split` `[0] }, 'apikey'))
+        let res = await fetch(global.API('hardianto', '/api/download/tiktok', { url: m.text.split(/\n| /i)[0] }, 'apikey'))
         if (!res.ok) throw await `${res.status} ${res.statusText}`
         let json = await res.json()
         await m.reply(global.wait)
-        // await this.sendVideo(m.chat, json.wm, '© rhynz', m)
-        await this.sendFile(m.chat, json.wm, '', '© rhynz', m)
+        // m.reply(util.format(json))
+        await this.sendFile(m.chat, json.nowm, '', '© rhynz', m)
     }
 
     if (/^.*cocofun/i.test(m.text)) {
-        let res = await fetch(global.API('jojo', '/api/cocofun-no-wm', { url: m.text.split` `[0] }))
-        if (!res.ok) throw await res.text()
+	@@ -31,7 +27,7 @@ handler.all = async function (m, { isPrems, isOwner }) {
         let json = await res.json()
         await m.reply(global.wait)
-        await this.sendFile(m.chat, json.download, '', `© Rhynz`, m)
+        m.reply(util.format(json))
+        await this.sendFile(m.chat, json.download, '', '© rhynz', m)
     }
 
     if (/^.*(fb.watch|facebook.com)/i.test(m.text)) {
@@ -39,7 +35,7 @@ handler.all = async function (m, { isPrems, isOwner }) {
             m.reply(require('util').format(json))
             if (!json.status) throw json
             await m.reply(global.wait)
-            await this.sendFile(m.chat, json.data[1] != undefined ? json.data[1].url : json.data[0].url, '© rhynz', m)
+            await this.sendFile(m.chat, isPrems ? json.data[1].url : json.data[0].url, '', '© rhynz', m)
         }).catch(_ => _)
     }
 
@@ -60,7 +56,7 @@ handler.all = async function (m, { isPrems, isOwner }) {
             let json = JSON.parse(pin)
             if (!json.status) return m.reply(`Tidak dapat diunduh`)
             await m.reply(global.wait)
-            await this.sendFile(m.chat, json.data.url, '', `© rhynz`, m)
+           await this.sendFile(m.chat, json.data.url, '', '© stikerin', m)
         }).catch(_ => _)
     }
 
