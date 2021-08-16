@@ -22,7 +22,7 @@ Bonus: ${poin} XP
     conn.caklontong[id] = [
         await conn.send2Button(m.chat, caption.trim(), '© rhynz', 'BANTUAN', '.calo', 'NYERAH', 'nyerah'),
         json, poin,
-        setTimeout(() => {
+        setTimeout(async() => {
            if (conn.caklontong[id]) await conn.sendButton(m.chat, `Waktu habis!\nJawabannya adalah *${json.jawaban}*\n${json.keterangan}`, '© rhynz', 'CAK LONTONG', '.caklontong')
         }, timeout)
     ]
