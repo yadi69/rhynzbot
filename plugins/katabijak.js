@@ -23,13 +23,13 @@ Opsi Tersedia:
         case 'kesedihan':
         case 'pernikahan':
         case 'kemerdekaan':
-            quotes(args[0].toLowerCase()).then(res => {
+            quotes(args[0].toLowerCase()).then(async res => {
                 let data = JSON.stringify(res)
                 let json = JSON.parse(data)
                 let random = Math.floor(Math.random() * json.data.length)
                 let hasil = json.data[random]
                 let { author, bio, quote } = hasil
-                m.reply(`“${quote}”\n\n${author} - ${bio}`)
+               await conn.send2Button(m.chat, `“${quote}”`, `${author} - ${bio}`, `KATA BIJAK ${args[0].toUpperCase()}`, `${usedPrefix + command} ${args[0]}`, `RANDOM`, `${usedPrefix + command} ${pickRandom(['rindu', 'mimpi', 'sendiri', 'sabar', 'kesedihan', 'pernikahan', 'kemerdekaan'])}`)
             })
             break
         default:
@@ -41,3 +41,6 @@ handler.tags = ['internet']
 handler.command = /^(katabijak|jagokata)$/i
 
 module.exports = handler
+function pickRandom(list) {
+    return list[Math.floor(list.length * Math.random())]
+}
