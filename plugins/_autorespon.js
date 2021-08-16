@@ -37,9 +37,17 @@ handler.all = async function (m, { isBlocked }) {
         m.reply(`وَعَلَيْكُمْ السَّلاَمُ وَرَحْمَةُ اللهِ وَبَرَكَاتُهُ\n_wa\'alaikumussalam wr.wb._`)
     }
     // backup db
-    if (setting.backup) {
+       if (setting.backup) {
         if (new Date() * 1 - setting.backupDB > 1000 * 60 * 60) {
-	@@ -53,26 +52,21 @@ handler.all = async function (m, { isBlocked }) {
+            let d = new Date
+            let date = d.toLocaleDateString('id', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric'
+            })
+            await global.db.write()
+            this.reply(global.owner[0] + '@s.whatsapp.net', `Database: ${date}`, null)
+            this.sendFile(global.owner[0] + '@s.whatsapp.net', fs.readFileSync('./database.json'), 'database.json', '', 0, 0, { mimetype: 'application/json' })
             setting.backupDB = new Date() * 1
         }
     }
