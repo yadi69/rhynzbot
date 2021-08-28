@@ -56,7 +56,7 @@ handler.all = async function (m, { isPrems, isOwner }) {
             let json = JSON.parse(pin)
             if (!json.status) return m.reply(`Tidak dapat diunduh`)
             await m.reply(global.wait)
-           await this.sendFile(m.chat, json.data.url, '', '© stikerin', m)
+           await this.sendFile(m.chat, json.data.url, '', '© rhynz', m)
         }).catch(_ => _)
     }
 
