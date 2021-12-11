@@ -10,7 +10,7 @@ let handler = async (m, { conn, usedPrefix }) => {
         throw false
     }
     // ubah isi 'id' kalo mau ganti playlist spotifynya
-    let res = await fetch(global.API('xteam', '/game/tebaklagu/', { id: '3AaKHE9ZMMEdyRadsg8rcy' }, 'APIKEY'))
+    let res = await fetch(global.API('mel', '/game/tebaklagu/', { id: '3AaKHE9ZMMEdyRadsg8rcy' }, 'apikey'))
     if (!res.ok) throw await `${res.status} ${res.statusText}`
     let result = await res.json()
     let json = result.result
@@ -24,8 +24,8 @@ Bonus: ${poin} XP
     conn.tebaklagu[id] = [
         await m.reply(caption),
         json, poin,
-        setTimeout(() => {
-            if (conn.tebaklagu[id]) conn.reply(m.chat, `Waktu habis!\nJawabannya adalah *${json.judul}*`, conn.tebaklagu[id][0])
+        setTimeout(async () => {
+            if (conn.tebaklagu[id]) await conn.sendButton(m.chat, `Waktu habis!\nJawabannya adalah *${json.judul}*`, '© rhynz', 'Tebak Lirik', `.tebaklirik`, conn.tebaklagu[id][0])
             delete conn.tebaklagu[id]
         }, timeout)
     ]

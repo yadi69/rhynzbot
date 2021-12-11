@@ -30,8 +30,9 @@ handler.command = ['tagme']
 
 // handler.fail = null
 // handler.exp = 0
+// handler.level = 1
+// handler.nfsw = false
 
 handler.disabled = true
 
 module.exports = handler
-

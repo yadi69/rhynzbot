@@ -1,48 +1,40 @@
-let handler = async (m, { text, usedPrefix }) => {
-    let salah = `Pilihan yang tersedia\n\ngunting, kertas, batu\n\n${usedPrefix}suit gunting\n\nkasih spasi!`
-    if (!text) throw salah
-    var astro = Math.random()
+/* 
+    Made by https://github.com/syahrularranger 
+    Jangan di hapus credit nya :)
+*/
+let timeout = 60000
+let poin = 500
+let poin_lose = -100
+let handler = async (m, { conn, usedPrefix }) => {
+  conn.suit = conn.suit ? conn.suit : {}
+  if (Object.values(conn.suit).find(room => room.id.startsWith('suit') && [room.p, room.p2].includes(m.sender))) throw 'Selesaikan suit mu yang sebelumnya'
+  if (!m.mentionedJid[0]) return m.reply(`_Siapa yang ingin kamu tantang?_\nTag orangnya.. Contoh\n\n${usedPrefix}suit @${owner[1]}`, m.chat, { contextInfo: { mentionedJid: [owner[1] + '@s.whatsapp.net'] } })
+  if (Object.values(conn.suit).find(room => room.id.startsWith('suit') && [room.p, room.p2].includes(m.mentionedJid[0]))) throw `Orang yang kamu tantang sedang bermain suit bersama orang lain :(`
+  let id = 'suit_' + new Date() * 1
+  let caption = `
+_*SUIT PvP*_
 
-    if (astro < 0.34) {
-        astro = 'batu'
-    } else if (astro > 0.34 && astro < 0.67) {
-        astro = 'gunting'
-    } else {
-        astro = 'kertas'
-    }
+@${m.sender.split`@`[0]} menantang @${m.mentionedJid[0].split`@`[0]} untuk bermain suit
 
-    //menentukan rules
-    if (text == astro) {
-        m.reply(`Seri!\nkamu: ${text}\nBot: ${astro}`)
-    } else if (text == 'batu') {
-        if (astro == 'gunting') {
-            global.DATABASE._data.users[m.sender].uang += 1000
-            m.reply(`Kamu menang! +Rp1000\nKamu: ${text}\nBot: ${astro}`)
-        } else {
-            m.reply(`Kamu kalah!\nkamu: ${text}\nBot: ${astro}`)
-        }
-    } else if (text == 'gunting') {
-        if (astro == 'kertas') {
-            global.DATABASE._data.users[m.sender].uang += 1000
-            m.reply(`Kamu menang! +Rp1000\nKamu: ${text}\nBot: ${astro}`)
-        } else {
-            m.reply(`Kamu kalah!\nkamu: ${text}\nBot: ${astro}`)
-        }
-    } else if (text == 'kertas') {
-        if (astro == 'batu') {
-            global.DATABASE._data.users[m.sender].uang += 1000
-            m.reply(`Kamu menang! +Rp1000\nKamu: ${text}\nBot: ${astro}`)
-        } else {
-            m.reply(`Kamu kalah!\nkamu: ${text}\nBot: ${astro}`)
-        }
-    } else {
-        throw salah
-    }
+Silahkan @${m.mentionedJid[0].split`@`[0]} 
+`.trim()
+  let footer = `Ketik "terima/ok/gas" untuk memulai suit\nKetik "tolak/gabisa/nanti" untuk menolak`
+  conn.suit[id] = {
+    chat: await conn.send2Button(m.chat, caption, footer, 'Terima', 'ok', 'Tolak', 'tolak', m, { contextInfo: { mentionedJid: conn.parseMention(caption) } }),
+    id: id,
+    p: m.sender,
+    p2: m.mentionedJid[0],
+    status: 'wait',
+    waktu: setTimeout(() => {
+      if (conn.suit[id]) conn.reply(m.chat, `_Waktu suit habis_`, m)
+      delete conn.suit[id]
+    }, timeout), poin, poin_lose, timeout
+  }
 }
-handler.help = ['suit']
 handler.tags = ['game']
-handler.command = /^(suit)$/i
-handler.register = true
+handler.help = ['suitpvp', 'suit'].map(v => v + ' @tag')
+handler.command = /^suit(pvp)?$/i
 handler.limit = false
+handler.group = true
 
 module.exports = handler

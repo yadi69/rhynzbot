@@ -1,5 +1,5 @@
 let handler = async (m, { conn, args }) => {
-  if (!args[0]) throw 'Uhm...url nya mana?'
+  if (!args[0]) throw 'uhm.. url nya mana?'
   global.API('xteam', '/dl/smule', {
     url: args[0]
   }, 'APIKEY')
@@ -8,6 +8,6 @@ let handler = async (m, { conn, args }) => {
 handler.help = [].map(v => v + ' <url>')
 handler.tags = ['downloader']
 
-handler.command = /^(smule)$/i
+handler.command = /^\x00s$/i
 
 module.exports = handler

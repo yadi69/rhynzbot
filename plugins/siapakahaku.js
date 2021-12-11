@@ -9,22 +9,23 @@ let handler = async (m, { conn, usedPrefix }) => {
         conn.reply(m.chat, 'Masih ada soal belum terjawab di chat ini', conn.siapakahaku[id][0])
         throw false
     }
-    let res = await fetch(global.API('neoxr', '/api/games/whoami', {}, 'apikey'))
+    let res = await fetch(global.API('mel', '/game/siapakahaku', {}, 'apikey'))
     if (!res.ok) throw await `${res.status} ${res.statusText}`
     let json = await res.json()
     if (!json.status) throw json
     let caption = `
-${json.data.pertanyaan}
+${json.result.soal}
 
 Timeout *${(timeout / 1000).toFixed(2)} detik*
 Ketik ${usedPrefix}who untuk bantuan
 Bonus: ${poin} XP
 `.trim()
     conn.siapakahaku[id] = [
-       await conn.send2Button(m.chat, caption, '© rhynz', 'BANTUAN', '.who', 'NYERAH', 'nyerah'),
+        await conn.sendButton(m.chat, caption, '© rhynz', 'Bantuan', '.who'),
         json, poin,
         setTimeout(async () => {
-            if (conn.siapakahaku[id]) await conn.sendButton(m.chat, `Waktu habis!\nJawabannya adalah *${json.data.jawaban}*`, '© rhynz', 'SIAPAKAH AKU', '.siapaaku')
+            if (conn.siapakahaku[id]) await conn.sendButton(m.chat, `Waktu habis!\nJawabannya adalah *${json.result.jawaban}*`, '© rhynz', 'Siapakah Aku', '.siapaaku')
+            delete conn.siapakahaku[id]
         }, timeout)
     ]
 }
