@@ -21,9 +21,9 @@ module.exports = {
         }
         let isWin = room.terjawab.length === room.terjawab.filter(v => v).length
         let caption = `
-*Soal:* ${room.soal}
+*Soal:* ${room.result.soal}
 
-Terdapat *${room.jawaban.length}* jawaban${room.jawaban.find(v => v.includes(' ')) ? `
+Terdapat *${room.result.jawaban.length}* jawaban${room.result.jawaban.find(v => v.includes(' ')) ? `
 (beberapa jawaban terdapat spasi)
 `: ''}
 ${isWin ? `*SEMUA JAWABAN TERJAWAB*` : isSurrender ? '*MENYERAH!*' : ''}
@@ -33,7 +33,7 @@ ${Array.from(room.jawaban, (jawaban, index) => {
 
 ${isSurrender ? '' : `+${room.winScore} XP tiap jawaban benar`}
     `.trim()
-        await this.sendButton(m.chat, caption, 'made with ❤️ by Rhynz', `${isWin ? 'FAMILY100' : isSurrender ? 'FAMILY100' : 'NYERAH'}`, `${isWin ? ',FAMILY100' : isSurrender ? ',FAMILY100' : 'NYERAH'}`, {
+        await this.sendButton(m.chat, caption, '© rhynz', `${isWin ? 'Family 100' : isSurrender ? 'Family 100' : 'Nyerah'}`, `${isWin ? ',family100' : isSurrender ? ',family100' : 'nyerah'}`, m, {
             contextInfo: {
                 mentionedJid: this.parseMention(caption)
             }

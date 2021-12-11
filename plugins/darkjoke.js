@@ -1,7 +1,5 @@
-let fetch = require('node-fetch')
 let handler = async (m, { conn }) => {
-    let url = global.API('xteam', '/asupan/darkjoke', {}, 'APIKEY')
-    await conn.sendFile(m.chat, url, '', '', m, 0, { thumbnail: await (await fetch(url)).buffer() })
+conn.sendFile(m.chat, global.API('mel', '/darkjokes', {}, 'apikey'), '', '', m, false, { thumbnail: Buffer.alloc(0) })
 }
 handler.help = ['darkjoke']
 handler.tags = ['internet']

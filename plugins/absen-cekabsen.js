@@ -2,7 +2,7 @@ let handler = async (m, { conn, usedPrefix }) => {
     let id = m.chat
     conn.absen = conn.absen ? conn.absen : {}
     if (!(id in conn.absen)) {
-        await conn.sendButton(m.chat, `Tidak ada absen berlangsung digrup ini!\n\nketik *${usedPrefix}mulaiabsen* untuk memulai absen`.trim(), '', 'MULAI', '.mulaiabsen')
+        await conn.sendButton(m.chat, `Tidak ada absen berlangsung!`.trim(), '© rhynz', 'Mulai', `${usedPrefix}mulaiabsen`, m)
         throw false
     }
 
@@ -18,18 +18,16 @@ let handler = async (m, { conn, usedPrefix }) => {
 Tanggal: ${date}
 ${conn.absen[id][2]}
     
-┌〔 Yang sudah absen 〕
+┌「 Absen 」
 │ 
 ├ Total: ${absen.length}
 ${list}
 │ 
-└────
-
-© RHYNZ`.trim()
-    await conn.send2Button(m.chat, caption, '', 'ABSEN', '.absen', 'HAPUS', '.hapusabsen', { contextInfo: { mentionedJid: conn.parseMention(caption) } })
+└────`.trim()
+    await conn.send2Button(m.chat, caption, '© rhynz', 'Absen', `${usedPrefix}absen`, 'Hapus', `${usedPrefix}hapusabsen`, m, { contextInfo: { mentionedJid: conn.parseMention(caption) } })
 }
 handler.help = ['cekabsen']
 handler.tags = ['absen']
 handler.command = /^cekabsen$/i
-handler.group = true
+
 module.exports = handler

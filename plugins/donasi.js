@@ -1,17 +1,10 @@
-let handler = async m => m.reply(`
-┌〔 Donasi • Pulsa 〕
-├ THREE [0895400244287]
-└────
-
+let fetch = require('node-fetch')
+let handler = async (m, { conn }) => await conn.sendButtonLoc(m.chat, await (await fetch(fla + 'donasi')).buffer(), `
 ┌〔 Donasi • Emoney 〕
-├ OVO, Dana, Gopay [082261637676]
+├ https://saweria.co/ariffb
+├ https://trakteer.id/ariffb/tip
 └────
-
-┌〔 Donasi • Link 〕
-├ saweria : saweria.co/rhynz
-└────
-Dukung Rhynz hanya dengan membuka link dibawah ini, dan ikuti tujuannya
-`.trim())
+`.trim(), '© rhynz', 'Donasi', '.donasi', m)
 handler.help = ['donasi']
 handler.tags = ['info']
 handler.command = /^dona(te|si)$/i

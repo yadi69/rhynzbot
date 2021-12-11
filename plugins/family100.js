@@ -1,18 +1,20 @@
-let fs = require('fs')
+let fetch = require('node-fetch')
 let winScore = 500
 async function handler(m) {
     this.game = this.game ? this.game : {}
     let id = 'family100_' + m.chat
     if (id in this.game) {
-        this.sendButton(m.chat, 'Masih ada kuis yang belum terjawab di chat ini', 'made with ❤️ by Rhynz', 'NYERAH', 'nyerah', { quoted: this.game[id].msg })
+        this.sendButton(m.chat, 'Masih ada kuis yang belum terjawab di chat ini', '© rhynz', 'Nyerah', 'nyerah', this.game[id].msg)
         throw false
     }
-    let src = JSON.parse(fs.readFileSync(`./src/family.json`))
-    let json = src[Math.floor(Math.random() * src.length)]
+    let res = await fetch(global.API('mel', '/game/caklontong', {}, 'apikey'))
+    if (!res.ok) throw await `${res.status} ${res.statusText}`
+    let json = await res.json()
+    if (!json.status) throw json
     let caption = `
-*Soal:* ${json.soal}
+*Soal:* ${json.result.soal}
 
-Terdapat *${json.jawaban.length}* jawaban${json.jawaban.find(v => v.includes(' ')) ? `
+Terdapat *${json.result.jawaban.length}* jawaban${json.jawaban.find(v => v.includes(' ')) ? `
 (beberapa jawaban terdapat spasi)
 `: ''}
 
@@ -20,9 +22,9 @@ Terdapat *${json.jawaban.length}* jawaban${json.jawaban.find(v => v.includes(' '
     `.trim()
     this.game[id] = {
         id,
-        msg: await this.sendButton(m.chat, caption, 'made with ❤️ by Rhynz', 'NYERAH', 'nyerah'),
+        msg: await this.sendButton(m.chat, caption, '© rhynz', 'Nyerah', 'nyerah', m),
         ...json,
-        terjawab: Array.from(json.jawaban, () => false),
+        terjawab: Array.from(json.result.jawaban, () => false),
         winScore,
     }
 }
