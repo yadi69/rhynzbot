@@ -9,17 +9,17 @@ let handler = async (m, { conn, text, usedPrefix }) => {
         var now = new Date() * 1
         if (now < global.db.data.chats[res.gid].expired) global.db.data.chats[res.gid].expired += jumlahHari
         else global.db.data.chats[res.gid].expired = now + jumlahHari
-      })
-   await conn.sendButton(res.gid, `
+    })
+    await conn.sendButton(res.gid, `
 *${conn.user.name}* adalah bot whatsapp yang dibangun dengan Nodejs, *${conn.user.name}* diundang oleh @${m.sender.split`@`[0]}
     
-ketik *${usedPrefix}menu* untuk melihat daftar perintah`.trim(), '© rhynz', 'MENU', `${usedPrefix}?`, { contextInfo: { mentionedJid: [m.sender] } })
+ketik *${usedPrefix}menu* untuk melihat daftar perintah`.trim(), '© rhynz', 'Menu', `${usedPrefix}?`, { contextInfo: { mentionedJid: [m.sender] } })
 }
 handler.help = ['join <chat.whatsapp.com>']
 handler.tags = ['']
 
 handler.command = /^join$/i
 
-handler.premium = true
+handler.premium = false
 
 module.exports = handler

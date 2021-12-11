@@ -1,4 +1,4 @@
-let handler = async (m, { conn, args }) => {
+let handler = async (m, { conn }) => {
     let bot = conn.user.jid // Bot
     let q = m.quoted ? m.quoted : m
     let mime = (q.msg || q).mimetype || ''

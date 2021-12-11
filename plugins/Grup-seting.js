@@ -15,14 +15,14 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
 contoh:
 ${usedPrefix + command} tutup
 ${usedPrefix + command} buka
-`.trim(), '© rhynz', 'BUKA', ',grup 1', 'TUTUP', ',grup 0')
+	`.trim(), '© rhynz', 'Buka', ',grup 1', 'Tutup', ',grup 0')
 		throw false
 	}
 	await conn.groupSettingChange(m.chat, GroupSettingChange.messageSend, isClose)
 }
-handler.help = ['group <buka/tutup>']
+handler.help = ['grup <buka/tutup>']
 handler.tags = ['group']
-handler.command = /^(group)$/i
+handler.command = /^(gro?up)$/i
 handler.owner = false
 handler.mods = false
 handler.premium = false

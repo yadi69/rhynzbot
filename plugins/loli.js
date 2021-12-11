@@ -1,11 +1,13 @@
-let handler = async (m, { conn }) => {
-  await m.reply(global.wait)
-  let res = `https://recoders-area.caliph.repl.co/api/loli`
-  conn.sendFile(m.chat, res, 'loli.jpg', `wangy wangy wangy`, m)
+let fetch = require('node-fetch')
+
+let handler = async (m, { conn, text }) => {
+let res = await fetch('https://raw.githubusercontent.com/Xmell91/loli/master/loli.json')
+if (!res.ok) throw await `${res.status} ${res.statusText}`;
+let json = await res.json();
+let url = json[Math.floor(Math.random() * json.length)]
+await conn.sendButtonImg(m.chat, await (await fetch(url)).buffer(), 'Random Loli', '© rhynz', 'Get Again', '/loli', m)
 }
-handler.help = ['loli'].map(v => v + ' ')
-handler.tags = ['weebs']
 handler.command = /^(loli)$/i
-handler.register = true
-handler.limit = true
+handler.tags = ['fun']
+handler.help = ['loli']
 module.exports = handler

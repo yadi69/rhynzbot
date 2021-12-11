@@ -11,7 +11,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
   if (typeof global.db.data.users[who] == "undefined") {
     global.db.data.users[who] = {
       exp: 0,
-      limit: 5,
+      limit: 10,
       lastclaim: 0,
       registered: false,
       name: conn.getName(m.sender),
@@ -22,7 +22,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
       banned: false,
       level: 0,
       call: 0,
-      role: 'warrior V',
+      role: 'Warrior V',
       autolevelup: false,
       pc: 0,
     }

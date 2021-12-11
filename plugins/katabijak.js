@@ -1,18 +1,17 @@
 const { quotes } = require('../lib/scrape')
 let handler = async (m, { command, args, usedPrefix }) => {
-    let er = `contoh:\n\n${usedPrefix + command} cinta
+    let er = `contoh:\n${usedPrefix + command} cinta
 
-Opsi Tersedia:
-• cinta
-• rindu
-• mimpi
-• sendiri
-• sabar
-• kesedihan
-• pernikahan
-• kemerdekaan
-
-`
+┌〔 Opsi 〕
+├ cinta
+├ rindu
+├ mimpi
+├ sendiri
+├ sabar
+├ kesedihan
+├ pernikahan
+├ kemerdekaan
+└────`.trim()
     if (!args[0]) throw er
     switch (args[0].toLowerCase()) {
         case 'cinta':
@@ -29,7 +28,7 @@ Opsi Tersedia:
                 let random = Math.floor(Math.random() * json.data.length)
                 let hasil = json.data[random]
                 let { author, bio, quote } = hasil
-               await conn.send2Button(m.chat, `“${quote}”`, `${author} - ${bio}`, `KATA BIJAK ${args[0].toUpperCase()}`, `${usedPrefix + command} ${args[0]}`, `RANDOM`, `${usedPrefix + command} ${pickRandom(['rindu', 'mimpi', 'sendiri', 'sabar', 'kesedihan', 'pernikahan', 'kemerdekaan'])}`)
+                await conn.send2Button(m.chat, `“${quote}”`, `${author} - ${bio}`, `KATA BIJAK ${args[0].toUpperCase()}`, `${usedPrefix + command} ${args[0]}`, `RANDOM`, `${usedPrefix + command} ${pickRandom(['rindu', 'mimpi', 'sendiri', 'sabar', 'kesedihan', 'pernikahan', 'kemerdekaan'])}`, m)
             })
             break
         default:
@@ -41,6 +40,7 @@ handler.tags = ['internet']
 handler.command = /^(katabijak|jagokata)$/i
 
 module.exports = handler
+
 function pickRandom(list) {
     return list[Math.floor(list.length * Math.random())]
 }

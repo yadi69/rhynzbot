@@ -1,7 +1,7 @@
 let levelling = require('../lib/levelling')
 const canvacord = require('canvacord')
 
-let handler = async m => {
+let handler = async (m, { conn, usedPrefix }) => {
   let pp = './src/avatar_contact.png'
   let who = m.sender
   let discriminator = who.substring(9, 13)
@@ -15,8 +15,8 @@ let handler = async m => {
     })
     let sortedLevel = users.map(toNumber('level')).sort(sort('level'))
     let usersLevel = sortedLevel.map(enumGetKey)
+    let { min, xp, max } = levelling.xpRange(user.level, global.multiplier)
     if (!levelling.canLevelUp(user.level, user.exp, global.multiplier)) {
-      let { min, xp, max } = levelling.xpRange(user.level, global.multiplier)
       let rank = await new canvacord.Rank()
         .setRank(usersLevel.indexOf(m.sender) + 1)
         .setAvatar(pp)
@@ -28,7 +28,7 @@ let handler = async m => {
         .setDiscriminator(discriminator)
       rank.build()
         .then(async data => {
-          await conn.sendButtonImg(m.chat, `Level *${user.level} (${user.exp - min}/${xp})*\nKurang *${max - user.exp}* lagi!`.trim(), data, '© Rhynz', 'AUTO LEVEL UP', ',on autolevelup')
+          await conn.sendButtonImg(m.chat, data, `Level *${user.level} (${user.exp - min}/${xp})*\nKurang *${max - user.exp}* lagi!`.trim(), '© rhynz', 'Auto Level Up', `${usedPrefix}on autolevelup`, m, { thumbnail: data, height: 282, width: 934 })
         })
     }
     let before = user.level * 1
@@ -45,7 +45,7 @@ let handler = async m => {
         .setDiscriminator(discriminator)
       rank.build()
         .then(async data => {
-          await conn.sendButtonImg(m.chat, `_*Level Up!*_\n_${before}_ -> _${user.level}_`.trim(), data, '© rhynz', 'AUTO LEVEL UP', ',on autolevelup')
+          await conn.sendButtonImg(m.chat, data, `_*Level Up!*_\n_${before}_ -> _${user.level}_`.trim(), '© rhynz', 'Auto Level Up', `${usedPrefix}on autolevelup`, m, { thumbnail: data, height: 282, width: 934 })
         })
     }
   }

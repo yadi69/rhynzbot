@@ -22,16 +22,22 @@ let handler = async (m, { conn, participants, groupMetadata, text }) => {
         let caption = `*Informasi Grup*\n
 *ID:* 
 ${groupMetadata.id}
+
 *Nama:* 
 ${groupMetadata.subject}
+
 *Deskripsi:* 
 ${groupMetadata.desc}
+
 *Total Anggota:*
 ${participants.length} Anggota
+
 *Pembuat Grup:* 
 @${m.chat.split`-`[0]}
+
 *Admin Grup:*
 ${listAdmin}
+
 *Pengaturan Bot:*
 ${antiLink ? '✅' : '❌'} Anti Link
 ${global.db.data.chats[m.chat].delete ? '❌' : '✅'} Anti Delete
@@ -40,11 +46,13 @@ ${descUpdate ? '✅' : '❌'} Deskprisi
 ${detect ? '✅' : '❌'} Detect
 ${stiker ? '✅' : '❌'} Stiker
 ${welcome ? '✅' : '❌'} Welcome
+
 *Pengaturan Pesan Bot:*
 Welcome: ${sWelcome}
 Bye: ${sBye}
 Promote: ${sPromote}
 Demote: ${sDemote}
+
 *Tersisa:*
 ${msToDate(expired - new Date() * 1)}
 `.trim()

@@ -4,7 +4,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
 
   if (!args[0]) throw `uhm.. url nya mana?\n\ncontoh:\n${usedPrefix + command} https://www.instagram.com/p/CQU21b0JKwq/`
   if (!args[0].match(/https:\/\/www.instagram.com\/(p|reel|tv)/gi)) throw `url salah, perintah ini untuk mengunduh post/reel/tv`
-  
+
   igdl(args[0]).then(async res => {
     let igdl = JSON.stringify(res)
     let json = JSON.parse(igdl)
@@ -22,5 +22,3 @@ handler.command = /^(ig|instagram)$/i
 handler.limit = true
 
 module.exports = handler
-
-
